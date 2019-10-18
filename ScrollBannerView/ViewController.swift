@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bannerView.heightAnchor.constraint(equalToConstant: 200).isActive = true
         
-        bannerView.pageControlAlignment = .center
+        bannerView.pageControlAlignment = .right
         
         let banners = [UIImage(named: "dims")!, UIImage(named: "dims1")!, UIImage(named: "dims2")!]
         bannerView.setupItems(items: banners)
