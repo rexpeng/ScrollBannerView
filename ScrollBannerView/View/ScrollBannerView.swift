@@ -66,7 +66,6 @@ class ScrollBannerView: UIView {
         
         pageControl = UIPageControl(frame: .zero)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        //addSubview(pageControl)
         pageControl.backgroundColor = .clear
         pageControl.hidesForSinglePage = true
     }
