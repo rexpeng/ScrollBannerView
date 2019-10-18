@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum PageControlAlignment {
+    case left, center, right, none
+}
+
 class ScrollBannerView: UIView {
     
     private var scrollView: UIScrollView!
@@ -19,6 +23,11 @@ class ScrollBannerView: UIView {
     private var banners: [UIImage] = []
     private var timerInterval: TimeInterval = 5
     
+    var pageControlAlignment: PageControlAlignment = .right {
+        didSet {
+            setupPageControlPosition()
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +40,13 @@ class ScrollBannerView: UIView {
         super.init(coder: coder)
         
         setup()
+    }
+    
+    deinit {
+        if timer != nil {
+            timer?.invalidate()
+            timer = nil
+        }
     }
     
     override func layoutSubviews() {
@@ -51,12 +67,33 @@ class ScrollBannerView: UIView {
         
         pageControl = UIPageControl(frame: .zero)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(pageControl)
-        pageControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        pageControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
-        pageControl.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        //addSubview(pageControl)
         pageControl.backgroundColor = .clear
         pageControl.hidesForSinglePage = true
+    }
+    
+    private func setupPageControlPosition() {
+        NSLayoutConstraint.deactivate(pageControl.constraints)
+        pageControl.removeFromSuperview()
+        switch pageControlAlignment {
+        case .left:
+            addSubview(pageControl)
+            pageControl.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+            pageControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+            pageControl.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        case .center:
+            addSubview(pageControl)
+            pageControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            pageControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+            pageControl.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        case .right:
+            addSubview(pageControl)
+            pageControl.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+            pageControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
+            pageControl.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        case .none:
+            break
+        }
     }
     
     func setupItems(items: [UIImage]) {

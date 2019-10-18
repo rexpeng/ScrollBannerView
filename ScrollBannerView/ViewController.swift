@@ -18,9 +18,6 @@ class ViewController: UIViewController {
         
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-    }
-
     func setupBannerView() {
         let bannerView = ScrollBannerView(frame: .zero)
         bannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +27,8 @@ class ViewController: UIViewController {
         bannerView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bannerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         bannerView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        bannerView.pageControlAlignment = .center
         
         let banners = [UIImage(named: "dims")!, UIImage(named: "dims1")!, UIImage(named: "dims2")!]
         bannerView.setupItems(items: banners)
